@@ -6,13 +6,13 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-public class LinkedListTest {
+public class DoubleLinkedListTest {
 
-    LinkedList<String> list;
+    DoubleLinkedList<String> list;
 
     @Before
     public void beforeEach() {
-        list = new LinkedList<>();
+        list = new DoubleLinkedList<>();
     }
 
     @Test
@@ -32,53 +32,96 @@ public class LinkedListTest {
         assertThat(list.toString(), equalTo("a b c"));
     }
 
+
     @Test
-    public void insertA() {
-        list.insert("a", 0);
+    public void removeEmpty() {
+        list.remove();
+        assertThat(list.toString(), equalTo(""));
+    }
+
+    @Test
+    public void removeA() {
+        list.add("a");
+        list.remove();
+        assertThat(list.toString(), equalTo(""));
+    }
+
+    @Test
+    public void removeAb() {
+        list.add("a");
+        list.add("b");
+        list.remove();
         assertThat(list.toString(), equalTo("a"));
     }
 
     @Test
-    public void insertAb() {
-        list.insert("a", 0).insert("b", 1);
+    public void removeAbc() {
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.remove();
         assertThat(list.toString(), equalTo("a b"));
     }
 
     @Test
-    public void insertBa() {
-        list.insert("b", 0).insert("a", 0);
+    public void removeAbc2() {
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.remove();
+        list.remove();
+        assertThat(list.toString(), equalTo("a"));
+    }
+
+    @Test
+    public void insertAtA() {
+        list.insertAt("a", 0);
+        assertThat(list.toString(), equalTo("a"));
+    }
+
+    @Test
+    public void insertAtAb() {
+        list.insertAt("a", 0).insertAt("b", 1);
         assertThat(list.toString(), equalTo("a b"));
     }
 
     @Test
-    public void insertAbc() {
-        list.insert("a", 0).insert("b", 1).insert("c", 2);
+    public void insertAtBa() {
+        list.insertAt("b", 0).insertAt("a", 0);
+        assertThat(list.toString(), equalTo("a b"));
+    }
+
+    @Test
+    public void insertAtAbc() {
+        list.insertAt("a", 0);
+        list.insertAt("b", 1);
+        list.insertAt("c", 2);
         assertThat(list.toString(), equalTo("a b c"));
     }
 
     @Test
-    public void insertAcb() {
-        list.insert("a", 0);
-        list.insert("c", 1);
-        list.insert("b", 1);
+    public void insertAtAcb() {
+        list.insertAt("a", 0);
+        list.insertAt("c", 1);
+        list.insertAt("b", 1);
 
         assertThat(list.toString(), equalTo("a b c"));
     }
 
     @Test
-    public void insertAbdec() {
+    public void insertAtAbdec() {
         list.add("a");
         list.add("b");
         list.add("d");
         list.add("e");
 
-        list.insert("c", 2);
+        list.insertAt("c", 2);
 
         assertThat(list.toString(), equalTo("a b c d e"));
     }
     @Test
-    public void insertCab() {
-        list.insert("c", 0).insert("a", 0).insert("b", 1);
+    public void insertAtCab() {
+        list.insertAt("c", 0).insertAt("a", 0).insertAt("b", 1);
         assertThat(list.toString(), equalTo("a b c"));
     }
 
@@ -122,45 +165,5 @@ public class LinkedListTest {
         list.add("c");
         list.removeAt(3);
         assertThat(list.toString(), equalTo("a b c"));
-    }
-
-    @Test
-    public void removeEmpty() {
-        list.remove();
-        assertThat(list.toString(), equalTo(""));
-    }
-
-    @Test
-    public void removeA() {
-        list.add("a");
-        list.remove();
-        assertThat(list.toString(), equalTo(""));
-    }
-
-    @Test
-    public void removeAb() {
-        list.add("a");
-        list.add("b");
-        list.remove();
-        assertThat(list.toString(), equalTo("a"));
-    }
-
-    @Test
-    public void removeAbc() {
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.remove();
-        assertThat(list.toString(), equalTo("a b"));
-    }
-
-    @Test
-    public void removeAbc2() {
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.remove();
-        list.remove();
-        assertThat(list.toString(), equalTo("a"));
     }
 }
