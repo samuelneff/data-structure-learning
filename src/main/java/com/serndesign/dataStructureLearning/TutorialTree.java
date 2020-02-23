@@ -40,8 +40,7 @@ public class TutorialTree<T extends Comparable<T>> {
         if (found == null) {
             return false;
         }
-
-
+        throw new IllegalStateException("Not written yet");
     }
     public int size() {
         return size;
